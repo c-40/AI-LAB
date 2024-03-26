@@ -50,3 +50,7 @@ p_sprinkler_true = p_rain * p_sprinkler_true_given_rain
 p_sprinkler_true_given_input = p_sprinkler_true / p_rain
 
 print("Probability of Sprinkler=True given the input:", p_sprinkler_true_given_input)
+
+Input:
+Is it raining? (yes/no): yes
+Probability of Sprinkler=True given the input: 0.8000000000000002
