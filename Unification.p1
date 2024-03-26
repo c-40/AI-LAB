@@ -1,0 +1,50 @@
+% unify/2 takes two terms and unifies them if possible
+unify(Term1, Term2) :-
+    var(Term1),
+    !,
+    unifyVar(Term1, Term2).
+unify(Term1, Term2) :-
+    var(Term2),
+    !,
+    unifyVar(Term2, Term1).
+unify(Term1, Term2) :-
+    functor(Term1, Functor, Arity),
+    functor(Term2, Functor, Arity),
+    unifyArgs(Arity, Term1, Term2).
+
+% unifyVar/2 unifies a variable with any term
+unifyVar(Var, Term) :-
+    Var = Term.
+
+% unifyArgs/3 unifies the arguments of two terms
+unifyArgs(0, _, _) :- !.
+unifyArgs(N, Term1, Term2) :-
+    arg(N, Term1, Arg1),
+    arg(N, Term2, Arg2),
+    unify(Arg1, Arg2),
+    N1 is N - 1,
+    unifyArgs(N1, Term1, Term2).
+
+
+Output:
+compiling /home/cg/root/6602910121045/main.pg for byte code...
+/home/cg/root/6602910121045/main.pg compiled, 25 lines read - 2241 bytes written, 3 ms
+| ?- unify(X, 3).
+unify(X, Y).
+unify(foo(A, B), foo(1, 2)).
+
+unify(X, 3).
+X = 3
+
+yes
+| ?- 
+unify(X, Y).unify(X, Y).Y = X
+
+yes
+| ?- 
+unify(foo(A, B), foo(1, 2)).unify(foo(A, B), foo(1, 2)).
+A = 1
+B = 2
+
+yes
+| ?- 
