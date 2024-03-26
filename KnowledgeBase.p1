@@ -1,0 +1,39 @@
+% Facts about animals
+animal(elephant).
+animal(lion).
+animal(tiger).
+animal(giraffe).
+animal(monkey).
+
+% Facts about animal characteristics
+has_trunk(elephant).
+has_mane(lion).
+has_stripes(tiger).
+has_long_neck(giraffe).
+has_tail(monkey).
+
+% Rules representing relationships between animals
+mammal(X) :- animal(X), \+ has_trunk(X), \+ has_stripes(X).
+
+Output:
+compiling /home/cg/root/660294ddcf37d/main.pg for byte code...
+/home/cg/root/660294ddcf37d/main.pg compiled, 15 lines read - 1586 bytes written, 3 ms
+| ?- animal(elephant).
+has_trunk(elephant).
+has_mane(lion).
+mammal(lion).
+
+animal(elephant).
+yes
+| ?- 
+has_trunk(elephant).has_trunk(elephant).
+
+yes
+| ?- 
+has_mane(lion).has_mane(lion).
+
+yes
+| ?- 
+mammal(lion).mammal(lion).
+yes
+| ?- 
