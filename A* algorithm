@@ -1,3 +1,5 @@
+A* Link:https://stackabuse.com/courses/graphs-in-python-theory-and-implementation/lessons/a-star-search-algorithm/
+
 Input:
 def aStarAlgo(start_node, stop_node):
     graph_nodes = {
