@@ -1,0 +1,52 @@
+from queue import PriorityQueue
+
+def greedy_best_first_search(graph, start, goal):
+    frontier = PriorityQueue()  # Priority queue ordered by heuristic value
+    frontier.put((heuristic(start, goal), start))
+    explored = set()  # Set to keep track of explored nodes
+    came_from = {}  # Dictionary to store the parent of each node in the path
+
+    while not frontier.empty():
+        _, current = frontier.get()  # Get node with lowest heuristic value
+        if current == goal:
+            # Reconstruct path
+            path = [current]
+            while current in came_from:
+                current = came_from[current]
+                path.append(current)
+            path.reverse()
+            return path  # Return the path from start to goal
+        explored.add(current)
+
+        for neighbor in graph[current]:
+            if neighbor not in explored:
+                came_from[neighbor] = current  # Update the parent of the neighbor
+                frontier.put((heuristic(neighbor, goal), neighbor))  # Add neighbors to frontier
+
+    return None  # Goal not found
+
+
+def heuristic(node, goal):
+    # Example heuristic: Alphabet difference
+    return abs(ord(node) - ord(goal))
+
+
+# Example graph represented as adjacency list with alphabets
+graph = {
+    'A': ['B', 'D'],
+    'B': ['A', 'C'],
+    'C': ['B', 'F'],
+    'D': ['A', 'E'],
+    'E': ['D', 'F'],
+    'F': ['C', 'E']
+}
+
+start_node = input("Enter start node (A-F): ").upper()
+goal_node = input("Enter goal node (A-F): ").upper()
+
+path = greedy_best_first_search(graph, start_node, goal_node)
+if path:
+    print("Path found:", ' -> '.join(path))
+    print("Goal reached!")
+else:
+    print("Goal not reachable!")
